@@ -27,189 +27,213 @@
 
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+    <link rel="preload" as="style" href="assets/css/main.css">
+    <link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/main.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="assets/css/main.css">
+    </noscript>
+
+    <style id="critical-css">
         body {
+            margin: 0;
             font-family: 'Inter', sans-serif;
             background-color: #f7f7f7;
-            color: #333;
+            color: #333333;
         }
 
-        .header-bg {
-            background-color: #1a1a1a;
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
         }
 
-        .logo-text {
-            color: #e53e3e; /* Matches the red in the logo */
+        .site-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
         }
-        
-        /* Hero Section with Zoom Effect */
+
+        .site-nav__brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .site-nav__brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .site-nav__links {
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .site-nav__links a {
+            text-decoration: none;
+            color: #111827;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .site-nav__cta,
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            background: #dc2626;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
         .hero-section {
             position: relative;
             overflow: hidden;
-            height: 80vh; /* Adjust as needed */
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        .hero-media {
+            position: absolute;
+            inset: 0;
+        }
+
         .hero-bg {
-            background-size: cover;
-            background-position: center;
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
             transform: scale(1);
             transition: transform 6s ease-in-out;
         }
-        
+
         .hero-section:hover .hero-bg {
             transform: scale(1.05);
         }
 
         .hero-content {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            inset: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            color: white;
+            align-items: center;
             text-align: center;
+            color: #ffffff;
+            gap: 1.5rem;
             padding: 2rem;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.65));
         }
 
-        /* Carousel Styles */
-        .carousel-container {
-            overflow: hidden;
-            width: 100%;
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 4vw, 3.75rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0;
         }
 
-        .carousel {
-            display: flex;
-            animation: carousel-scroll 30s linear infinite;
-        }
-        
-        .carousel-item {
-            flex: 0 0 auto;
-            width: 120px;
-            height: 80px;
-            margin: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .hero-content p {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            font-weight: 300;
+            max-width: 50rem;
+            margin: 0;
         }
 
-        .carousel-item img {
-            max-height: 100%;
-            width: auto;
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-        }
-        
-        .carousel-item img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
+        @media (min-width: 768px) {
+            .site-nav__links {
+                display: inline-flex;
+            }
         }
 
-        @keyframes carousel-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+        @media (max-width: 767px) {
+            .site-nav {
+                padding: 1rem;
+            }
 
-        /* Responsive Navigation */
-        .hamburger-menu {
-            display: none;
-        }
+            .site-nav__burger {
+                display: inline-flex;
+            }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
+            .site-nav__links {
                 position: absolute;
                 top: 64px;
                 left: 0;
                 width: 100%;
-                background-color: #1a1a1a;
+                background: #111827;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
                 padding: 1rem 0;
-                border-top: 1px solid #333;
             }
 
-            .nav-links.active {
+            .site-nav__links.active {
                 display: flex;
             }
 
-            .nav-links a {
-                padding: 0.75rem 1.5rem;
+            .site-nav__links a,
+            .site-nav__cta {
+                color: #f9fafb;
+                width: calc(100% - 3rem);
+                margin: 0 auto;
                 text-align: center;
-                border-bottom: 1px solid #333;
             }
 
-            .hamburger-menu {
-                display: block;
+            .site-nav__links a {
+                padding: 0.75rem 1.5rem;
             }
-        }
-        
-        /* Social Icons */
-        .social-icon-facebook {
-            color: #1877f2;
-            transition: transform 0.2s;
-        }
-        .social-icon-google {
-            color: #db4437;
-            transition: transform 0.2s;
-        }
-        .social-icon-facebook:hover, .social-icon-google:hover {
-            transform: scale(1.1);
-        }
-
-        /* Custom formspree styles to remove branding */
-        .formspree-link {
-            display: none !important;
         }
     </style>
-</style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Simple Analytics -->
-    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <script defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </head>
 <body class="bg-[#f7f7f7]">
 
-    <header class="bg-white shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <a href="index.html" class="flex items-center">
-                    <span class="flex h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-black p-1 shadow-md">
-                        <img src="logo.png" alt="Chaney Insurance logo" class="h-full w-full object-contain">
-                    </span>
-                    <span class="ml-3 flex flex-col leading-tight text-left">
-                        <span class="text-lg font-bold text-black sm:text-2xl">Chaney Insurance</span>
-                        <span class="text-xs text-gray-600 sm:text-sm">A Hometown Insurance Agency</span>
-                    </span>
-                </a>
-            </div>
+    <header class="site-header bg-white shadow-lg sticky top-0 z-50">
+        <nav class="site-nav container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="site-nav__brand flex items-center">
+                <span class="flex h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-black p-1 shadow-md">
+                    <img src="assets/images/logo-128.webp" srcset="assets/images/logo-128.webp 128w, assets/images/logo-256.webp 256w" sizes="(min-width: 768px) 80px, 64px" width="128" height="128" alt="Chaney Insurance logo" class="h-full w-full object-contain" decoding="async">
+                </span>
+                <span class="site-nav__brand-text ml-3 flex flex-col leading-tight text-left">
+                    <span class="text-lg font-bold text-black sm:text-2xl">Chaney Insurance</span>
+                    <span class="text-xs text-gray-600 sm:text-sm">A Hometown Insurance Agency</span>
+                </span>
+            </a>
             
             <div class="md:hidden">
-                <button id="hamburger" class="text-black focus:outline-none">
+                <button id="hamburger" class="site-nav__burger text-black focus:outline-none" aria-label="Toggle navigation">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
             </div>
             
-            <div id="nav-menu" class="nav-links hidden flex-col gap-3 text-lg md:flex md:flex-row md:items-center md:gap-6">
+            <div id="nav-menu" class="site-nav__links nav-links flex-col gap-3 text-lg md:flex md:flex-row md:items-center md:gap-6">
                 <a href="index.html" class="transition duration-300 text-white hover:text-gray-200 md:text-black md:hover:text-gray-700">Home</a>
                 <a href="#about" class="transition duration-300 text-white hover:text-gray-200 md:text-black md:hover:text-gray-700">About</a>
                 <a href="#products" class="transition duration-300 text-white hover:text-gray-200 md:text-black md:hover:text-gray-700">Services</a>
-                <a href="#contact" class="bg-red-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 hover:bg-red-700 w-full md:w-auto text-center">
+                <a href="#contact" class="site-nav__cta bg-red-600 text-white font-bold py-2 px-6 rounded-full transition duration-300 hover:bg-red-700 w-full md:w-auto text-center">
                     Contact an Agent 
                 </a>
             </div>
@@ -217,7 +241,10 @@
     </header>
 
     <section class="hero-section">
-        <div class="hero-bg" style="background-image: url('Lake\ photo.jpg')"></div>
+        <picture class="hero-media">
+            <source type="image/webp" srcset="assets/images/lake-hero-1600.webp 1600w, assets/images/lake-hero-800.webp 800w" sizes="100vw">
+            <img class="hero-bg" src="assets/images/lake-hero-800.webp" alt="Sunset over Grand Lake reflecting on calm water" width="1600" height="1067" fetchpriority="high" decoding="async">
+        </picture>
         <div class="hero-content">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-up">
                 Protecting What Matters Most.
@@ -249,8 +276,10 @@
                     </p>
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="flex items-start gap-4 rounded-xl bg-white/80 p-5 shadow-lg ring-1 ring-gray-100">
-                            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/10 text-2xl text-red-600">
-                                <i class="fa-solid fa-user-group"></i>
+                            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/10 text-red-600">
+                                <svg class="h-6 w-6" viewBox="0 0 640 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z" />
+                                </svg>
                             </span>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900">Relationship Driven</h3>
@@ -258,8 +287,10 @@
                             </div>
                         </div>
                         <div class="flex items-start gap-4 rounded-xl bg-white/80 p-5 shadow-lg ring-1 ring-gray-100">
-                            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/10 text-2xl text-red-600">
-                                <i class="fa-solid fa-medal"></i>
+                            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/10 text-red-600">
+                                <svg class="h-6 w-6" viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0H133.9c11.2 0 21.7 5.9 27.4 15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0H487.4C501 0 512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z" />
+                                </svg>
                             </span>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900">Coverage That Fits</h3>
@@ -292,7 +323,10 @@
                     <div class="relative w-full max-w-md">
                         <div class="absolute -top-6 -right-6 h-32 w-32 rounded-3xl border border-red-100"></div>
                         <div class="absolute bottom-8 -left-8 h-24 w-24 rounded-full bg-red-600/10"></div>
-                        <img src="Chaney oficer.jpg" alt="A smiling insurance agent" class="relative z-10 rounded-3xl shadow-2xl ring-1 ring-gray-200" loading="lazy">
+                        <picture class="relative z-10 block overflow-hidden rounded-3xl shadow-2xl ring-1 ring-gray-200">
+                            <source type="image/webp" srcset="assets/images/staff-1200.webp 1200w, assets/images/staff-768.webp 768w" sizes="(min-width: 1024px) 40vw, 80vw">
+                            <img src="assets/images/staff-768.webp" alt="A smiling insurance agent" width="1200" height="813" loading="lazy" decoding="async" class="h-full w-full object-cover">
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -304,8 +338,10 @@
             <h2 class="text-4xl font-extrabold text-center mb-12">Our Services</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105">
-                    <div class="text-4xl mb-4 text-red-600">
-                        <i class="fas fa-car-crash"></i>
+                    <div class="mb-4 text-red-600">
+                        <svg class="mx-auto h-12 w-12" viewBox="0 0 640 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M176 8c-6.6 0-12.4 4-14.9 10.1l-29.4 74L55.6 68.9c-6.3-1.9-13.1 .2-17.2 5.3s-4.6 12.2-1.4 17.9l39.5 69.1L10.9 206.4c-5.4 3.7-8 10.3-6.5 16.7s6.7 11.2 13.1 12.2l78.7 12.2L90.6 327c-.5 6.5 3.1 12.7 9 15.5s12.9 1.8 17.8-2.6l35.3-32.5 9.5-35.4 10.4-38.6c8-29.9 30.5-52.1 57.9-60.9l41-59.2c11.3-16.3 26.4-28.9 43.5-37.2c-.4-.6-.8-1.2-1.3-1.8c-4.1-5.1-10.9-7.2-17.2-5.3L220.3 92.1l-29.4-74C188.4 12 182.6 8 176 8zM367.7 161.5l135.6 36.3c6.5 1.8 11.3 7.4 11.8 14.2l4.6 56.5-201.5-54 32.2-46.6c3.8-5.6 10.8-8.1 17.3-6.4zm-69.9-30l-47.9 69.3c-21.6 3-40.3 18.6-46.3 41l-10.4 38.6-16.6 61.8-8.3 30.9c-4.6 17.1 5.6 34.6 22.6 39.2l15.5 4.1c17.1 4.6 34.6-5.6 39.2-22.6l8.3-30.9 247.3 66.3-8.3 30.9c-4.6 17.1 5.6 34.6 22.6 39.2l15.5 4.1c17.1 4.6 34.6-5.6 39.2-22.6l8.3-30.9L595 388l10.4-38.6c6-22.4-2.5-45.2-19.6-58.7l-6.8-84c-2.7-33.7-26.4-62-59-70.8L384.2 99.7c-32.7-8.8-67.3 4-86.5 31.8zm-17 131a24 24 0 1 1 -12.4 46.4 24 24 0 1 1 12.4-46.4zm217.9 83.2A24 24 0 1 1 545 358.1a24 24 0 1 1 -46.4-12.4z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Auto Insurance</h3>
                     <p class="text-gray-600">
@@ -313,8 +349,10 @@
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105">
-                    <div class="text-4xl mb-4 text-red-600">
-                        <i class="fas fa-home"></i>
+                    <div class="mb-4 text-red-600">
+                        <svg class="mx-auto h-12 w-12" viewBox="0 0 576 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Home Insurance</h3>
                     <p class="text-gray-600">
@@ -322,8 +360,10 @@
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105">
-                    <div class="text-4xl mb-4 text-red-600">
-                        <i class="fas fa-heartbeat"></i>
+                    <div class="mb-4 text-red-600">
+                        <svg class="mx-auto h-12 w-12" viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M228.3 469.1L47.6 300.4c-4.2-3.9-8.2-8.1-11.9-12.4h87c22.6 0 43-13.6 51.7-34.5l10.5-25.2 49.3 109.5c3.8 8.5 12.1 14 21.4 14.1s17.8-5 22-13.3L320 253.7l1.7 3.4c9.5 19 28.9 31 50.1 31H476.3c-3.7 4.3-7.7 8.5-11.9 12.4L283.7 469.1c-7.5 7-17.4 10.9-27.7 10.9s-20.2-3.9-27.7-10.9zM503.7 240h-132c-3 0-5.8-1.7-7.2-4.4l-23.2-46.3c-4.1-8.1-12.4-13.3-21.5-13.3s-17.4 5.1-21.5 13.3l-41.4 82.8L205.9 158.2c-3.9-8.7-12.7-14.3-22.2-14.1s-18.1 5.9-21.8 14.8l-31.8 76.3c-1.2 3-4.2 4.9-7.4 4.9H16c-2.6 0-5 .4-7.3 1.1C3 225.2 0 208.2 0 190.9v-5.8c0-69.9 50.5-129.5 119.4-141C165 36.5 211.4 51.4 244 84l12 12 12-12c32.6-32.6 79-47.5 124.6-39.9C461.5 55.6 512 115.2 512 185.1v5.8c0 16.9-2.8 33.5-8.3 49.1z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Life</h3>
                     <p class="text-gray-600">
@@ -331,8 +371,10 @@
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105">
-                    <div class="text-4xl mb-4 text-red-600">
-                        <i class="fas fa-building"></i>
+                    <div class="mb-4 text-red-600">
+                        <svg class="mx-auto h-12 w-12" viewBox="0 0 384 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Commercial Insurance</h3>
                     <p class="text-gray-600">
@@ -340,8 +382,10 @@
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105">
-                    <div class="text-4xl mb-4 text-red-600">
-                        <i class="fas fa-ship"></i>
+                    <div class="mb-4 text-red-600">
+                        <svg class="mx-auto h-12 w-12" viewBox="0 0 576 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M192 32c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32V64h48c26.5 0 48 21.5 48 48V240l44.4 14.8c23.1 7.7 29.5 37.5 11.5 53.9l-101 92.6c-16.2 9.4-34.7 15.1-50.9 15.1c-19.6 0-40.8-7.7-59.2-20.3c-22.1-15.5-51.6-15.5-73.7 0c-17.1 11.8-38 20.3-59.2 20.3c-16.2 0-34.7-5.7-50.9-15.1l-101-92.6c-18-16.5-11.6-46.2 11.5-53.9L96 240V112c0-26.5 21.5-48 48-48h48V32zM160 218.7l107.8-35.9c13.1-4.4 27.3-4.4 40.5 0L416 218.7V128H160v90.7zM306.5 421.9C329 437.4 356.5 448 384 448c26.9 0 55.4-10.8 77.4-26.1l0 0c11.9-8.5 28.1-7.8 39.2 1.7c14.4 11.9 32.5 21 50.6 25.2c17.2 4 27.9 21.2 23.9 38.4s-21.2 27.9-38.4 23.9c-24.5-5.7-44.9-16.5-58.2-25C449.5 501.7 417 512 384 512c-31.9 0-60.6-9.9-80.4-18.9c-5.8-2.7-11.1-5.3-15.6-7.7c-4.5 2.4-9.7 5.1-15.6 7.7c-19.8 9-48.5 18.9-80.4 18.9c-33 0-65.5-10.3-94.5-25.8c-13.4 8.4-33.7 19.3-58.2 25c-17.2 4-34.4-6.7-38.4-23.9s6.7-34.4 23.9-38.4c18.1-4.2 36.2-13.3 50.6-25.2c11.1-9.4 27.3-10.1 39.2-1.7l0 0C136.7 437.2 165.1 448 192 448c27.5 0 55-10.6 77.5-26.1c11.1-7.9 25.9-7.9 37 0z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Boat & Watercraft</h3>
                     <p class="text-gray-600">
@@ -349,8 +393,10 @@
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105">
-                    <div class="text-4xl mb-4 text-red-600">
-                        <i class="fa-solid fa-tractor"></i>
+                    <div class="mb-4 text-red-600">
+                        <svg class="mx-auto h-12 w-12" viewBox="0 0 640 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M96 64c0-35.3 28.7-64 64-64H266.3c26.2 0 49.7 15.9 59.4 40.2L373.7 160H480V126.2c0-24.8 5.8-49.3 16.9-71.6l2.5-5c7.9-15.8 27.1-22.2 42.9-14.3s22.2 27.1 14.3 42.9l-2.5 5c-6.7 13.3-10.1 28-10.1 42.9V160h56c22.1 0 40 17.9 40 40v45.4c0 16.5-8.5 31.9-22.6 40.7l-43.3 27.1c-14.2-5.9-29.8-9.2-46.1-9.2c-39.3 0-74.1 18.9-96 48H352c0 17.7-14.3 32-32 32h-8.2c-1.7 4.8-3.7 9.5-5.8 14.1l5.8 5.8c12.5 12.5 12.5 32.8 0 45.3l-22.6 22.6c-12.5 12.5-32.8 12.5-45.3 0l-5.8-5.8c-4.6 2.2-9.3 4.1-14.1 5.8V480c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32v-8.2c-4.8-1.7-9.5-3.7-14.1-5.8l-5.8 5.8c-12.5 12.5-32.8 12.5-45.3 0L40.2 449.1c-12.5-12.5-12.5-32.8 0-45.3l5.8-5.8c-2.2-4.6-4.1-9.3-5.8-14.1H32c-17.7 0-32-14.3-32-32V320c0-17.7 14.3-32 32-32h8.2c1.7-4.8 3.7-9.5 5.8-14.1l-5.8-5.8c-12.5-12.5-12.5-32.8 0-45.3l22.6-22.6c9-9 21.9-11.5 33.1-7.6V192 160 64zm170.3 0H160v96h32H304.7L266.3 64zM176 256a80 80 0 1 0 0 160 80 80 0 1 0 0-160zM528 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm0 64c-48.6 0-88-39.4-88-88c0-29.8 14.8-56.1 37.4-72c14.3-10.1 31.8-16 50.6-16c2.7 0 5.3 .1 7.9 .3c44.9 4 80.1 41.7 80.1 87.7c0 48.6-39.4 88-88 88z" />
+                        </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Farm & Ranch</h3>
                     <p class="text-gray-600">
@@ -399,11 +445,11 @@
         <div class="container mx-auto px-6">
             <div class="relative flex flex-col items-center md:items-start md:min-h-[200px]">
                 <div class="md:hidden mb-6">
-                    <img src="Untitled design-16.png" alt="Chaney Insurance Logo" class="h-32">
+                    <img src="assets/images/footer-logo-200.webp" srcset="assets/images/footer-logo-200.webp 200w, assets/images/footer-logo-400.webp 400w" sizes="(min-width: 768px) 160px, 128px" width="400" height="400" alt="Chaney Insurance emblem" class="h-32 w-auto" loading="lazy" decoding="async">
                 </div>
 
                 <div class="hidden md:block absolute top-0 left-0">
-                    <img src="Untitled design-16.png" alt="Chaney Insurance Logo" class="h-32 md:h-40">
+                    <img src="assets/images/footer-logo-200.webp" srcset="assets/images/footer-logo-200.webp 200w, assets/images/footer-logo-400.webp 400w" sizes="(min-width: 1024px) 200px, 160px" width="400" height="400" alt="Chaney Insurance emblem" class="h-32 w-auto md:h-40" loading="lazy" decoding="async">
                 </div>
 
                 <div class="w-full text-center space-y-2 md:py-4">
@@ -426,22 +472,33 @@
     </footer>
 
     <script>
-        // Hamburger menu functionality
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        if (hamburger && navMenu) {
+            const toggleMenu = () => {
+                const isOpen = navMenu.classList.toggle('active');
+                hamburger.setAttribute('aria-expanded', String(isOpen));
+            };
 
-        // Close menu when a link is clicked
-        document.querySelectorAll('#nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
+            hamburger.addEventListener('click', toggleMenu);
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
                 }
             });
-        });
+        }
     </script>
 
 </body>
